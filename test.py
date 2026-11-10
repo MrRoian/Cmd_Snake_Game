@@ -22,11 +22,13 @@ for i, line in enumerate(game_board):
     for j, value in enumerate(line):
         if game_board[i][j] == "X":
             x = [i, j]
-            print(x)
 
 
 game_board[x[0]][x[1]] = " "
-game_board[x[0]+(-1)][x[1]+1] = "X"
+x[0] = x[0]+(-1)
+x[1] = x[1]+1
+print(x)
+game_board[x[0]][x[1]] = "X"
             
 
 
