@@ -1,8 +1,9 @@
 import curses
 import random
 import numpy as np
+import time
 from curses import wrapper
-from Movement import key
+from key import *
 
 game_board = [["#", "#", "#", "#", "#", "#", "#", "#", "#"],
               ["#", " ", " ", " ", " ", " ", " ", " ", "#"],
@@ -27,6 +28,17 @@ def field(game_board, stdscr):
         for j, char in enumerate(r):
             stdscr.addstr(i, j*3, char, WHITE)
 
+def main(stdscr):
+    curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_BLACK)
+    curses.init_pair(2, curses.COLOR_GREEN, curses.COLOR_BLACK)
+
+
+
+    stdscr.clear()
+    field(game_board, stdscr)
+    player(game_board, stdscr)
+    stdscr.refresh()
+
 
 
 def player(game_board, stdscr):
@@ -40,17 +52,9 @@ def player(game_board, stdscr):
             else:
                 continue
 
-
-def main(stdscr):
-    curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_BLACK)
-    curses.init_pair(2, curses.COLOR_GREEN, curses.COLOR_BLACK)
-
-
-
-    stdscr.clear()
-    field(game_board, stdscr)
-    player(game_board, stdscr)
-    stdscr.refresh()
-    key()
-
 wrapper(main)
+
+# Todo list
+# main > game progress
+#      - get key input
+#      - Update Board
