@@ -7,7 +7,6 @@ from curses import wrapper
 saved = []
 score = 0
 
-
 def tracking(game_board):
 
     for i, line in enumerate(game_board):
@@ -67,14 +66,23 @@ def update(dir, game_board, stdscr):
     else:
         pass
 
-    saved.append([x[0], x[1]])
-    print(saved)
+    if score > 0:
+        for i in saved:
+            i[2] = i[2] - 1
+            if i[2] == 0:
+                game_board[i[0]][i[1]] = " "
+            else:
+                game_board[x[0]][x[1]] = "x"
+    else:
+        game_board[x[0]][x[1]] = " "
 
-    game_board[x[0]][x[1]] = " " # before x gonna edit
+    saved.append([x[0], x[1], score])
+
     x[0] = x[0]+(line) # editing
     x[1] = x[1]+(colum) # editing
 
-    if game_board[x[0]][x[1]] == "#": # game over check
+
+    if game_board[x[0]][x[1]] == "#" or game_board[x[0]][x[1]] == "x": # game over check
         print("Game Over")
         print(f"Score: {score}")
         return False
@@ -83,6 +91,8 @@ def update(dir, game_board, stdscr):
             apple(game_board)
             score += 1
 
+
+        check_apple(game_board)
         game_board[x[0]][x[1]] = "X"
         stdscr.clear()
         field(game_board, stdscr)
@@ -121,10 +131,19 @@ def apple(game_board):
 
     for i, r in enumerate(game_board):
         for j, char in enumerate(r):
-            if game_board[i][j] == "#" or game_board[i][j] == "X":
+            if game_board[i][j] == "#" or game_board[i][j] == "X" or game_board[i][j] == "x":
                 pass
             else:
                 apple_spawn_range.append([i, j])
 
     apple_spawn = random.choice(apple_spawn_range)
     game_board[apple_spawn[0]][apple_spawn[1]] = "A"
+
+def check_apple(game_board):
+    for i, r in enumerate(game_board):
+        for j, char in enumerate(r):
+            if char == "A":
+                return True
+
+    apple(game_board)
+            
