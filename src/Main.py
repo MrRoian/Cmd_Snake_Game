@@ -1,6 +1,5 @@
 import curses
 import random
-import numpy as np
 import time
 from curses import wrapper
 from Func import *

@@ -1,7 +1,6 @@
 import curses
 import random
 import time
-import numpy as np
 from curses import wrapper
 
 saved = []
